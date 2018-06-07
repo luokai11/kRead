@@ -1,0 +1,15 @@
+export const INIT_STATE = 'INIT_STATE';
+export const ADD_SEARCH_RECORDS = 'ADD_SEARCH_RECORDS';
+export const DEL_SEARCH_RECORDS = 'DEL_SEARCH_RECORDS';
+export const EMPTY_SEARCH_RECORDS = 'EMPTY_SEARCH_RECORDS';
+export const ADD_BROWSE_RECORDS = 'ADD_BROWSE_RECORDS';
+export const DEL_BROWSE_RECORDS = 'DEL_BROWSE_RECORDS';
+export const EMPTY_BROWSE_RECORDS = 'EMPTY_BROWSE_RECORDS';
+export const SET_CUR_BOOK = 'SET_CUR_BOOK';
+export const ADD_SHELF = 'ADD_SHELF';
+export const DEL_SHELF = 'DEL_SHELF';
+export const UPDATA_SHELF = 'UPDATA_SHELF';
+export const EMPTY_SHELF = 'EMPTY_SHELF';
+export const SET_FACE = 'SET_FACE';
+export const SET_SKIN_COLOR = 'SET_SKIN_COLOR';
+export const SET_NIGHT = 'SET_NIGHT';

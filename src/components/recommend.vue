@@ -1,10 +1,8 @@
 <template>
   <div class="list">
+
     <Head :title="$route.params.name"></Head>
-    <div v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false" :style="scrH">
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check="false" :style="scrH">
       <BookList :bookList="bookList" :imgClass="'sImg'"></BookList>
     </div>
   </div>
@@ -16,7 +14,7 @@ import Head from './plug/Head';
 import BookList from './plug/BookList';
 export default {
   name: 'list',
-  components:{
+  components: {
     Head,
     BookList
   },
@@ -59,10 +57,12 @@ export default {
     }
   }
 }
+
 </script>
 <style scoped>
-  .list {
-    margin-top: 2.5rem;
-    overflow: hidden;
-  }
+.list {
+  margin-top: 2.5rem;
+  overflow: hidden;
+}
+
 </style>

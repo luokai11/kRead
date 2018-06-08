@@ -1,5 +1,6 @@
 <template>
   <div class="choice">
+
     <Head :isBack="false" :title="'精选'">
       <Select :text="selectValue" :items="gender" :sid="'gender'" v-on:gender="increment" slot="left">
       </Select>

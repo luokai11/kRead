@@ -7,7 +7,7 @@
     </Head>
     <div class="page-tab-container">
       <div class="content">
-        <div class="books" v-for="(b,index) in bookShelfList" @click="details(b.id)" :key="index">
+        <div class="books" v-for="(b,index) in bookShelfList" @click="details(b,false)" :key="index">
           <div class="bLeft">
             <img :src="b.cover | staticUrl" class="sImg">
           </div>
@@ -54,7 +54,7 @@
           最新:<span>{{book.lastChapter}}</span>
         </div>
         <div class="operate">
-          <div class="ope" @click="details(book.id)">
+          <div class="ope" @click="details(book,true)">
             <i class="mintui mintui-mulu"></i>
             <div>详情</div>
           </div>
@@ -124,12 +124,20 @@ export default {
       this.book = obj;
       this.popupVisible = true;
     },
-    details(id) {
+    details(book,bool) {
       this.popupVisible = false;
-      this.$router.push({
-        name: 'bookDetails',
-        params: { id: id }
-      })
+      if(book.already === '' || bool){
+        this.$router.push({
+          name: 'bookDetails',
+          params: { id: book.id }
+        });
+      }else {
+        this.$router.push({
+          name: 'chapter',
+          params: { id: book.id },
+          query: { isChap: false }
+        });
+      }
     },
     goSearch() {
       this.$router.push('searchBook')

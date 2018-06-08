@@ -1,5 +1,6 @@
 <template>
   <div class="comm">
+
     <Head :title="'评论详情'">
     </Head>
     <div style="padding-top:0.5rem;">
@@ -20,10 +21,7 @@
       </div>
     </div>
     <div>
-      <div class="comments"  v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false">
+      <div class="comments" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
         <div class="comment" v-for="(r,index) in reviews">
           <div class="bCom">
             <img class="img" :src="activityAvatar | staticUrl">
@@ -46,7 +44,7 @@ import api from '../api/api';
 import Head from './plug/Head';
 export default {
   name: 'comm',
-  components:{
+  components: {
     Head
   },
   data() {
@@ -63,7 +61,7 @@ export default {
       limit: 20,
       loading: false,
       activityAvatar: '',
-      noHas:false
+      noHas: false
     }
   },
   created() {
@@ -73,7 +71,7 @@ export default {
   },
   methods: {
     loadMore() {
-      if(this.noHas){
+      if (this.noHas) {
         return;
       }
       this.loading = true;
@@ -89,7 +87,7 @@ export default {
           for (let [index, b] of res.data.comments.entries()) {
             this.reviews.push(b);
           }
-          if(res.data.comments.length === 0 || res.data.comments.length < this.limit){
+          if (res.data.comments.length === 0 || res.data.comments.length < this.limit) {
             this.noHas = true;
             return;
           }

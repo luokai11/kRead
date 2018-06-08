@@ -11,25 +11,26 @@
   </div>
 </template>
 <script>
-  export default {
-    data(){
-      return {
-      }
+export default {
+  data() {
+    return {}
+  },
+  props: {
+    isBack: {
+      type: Boolean,
+      default: true
     },
-    props:{
-      isBack:{
-        type:Boolean,
-        default:true
-      },
-      title:String,
-    },
-    methods:{
-      back(){
-        this.$router.go(-1);
-      }
+    title: String,
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
     }
   }
+}
+
 </script>
 <style lang="less" scoped>
+
 
 </style>

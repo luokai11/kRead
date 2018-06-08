@@ -14,22 +14,23 @@
   </div>
 </template>
 <script>
-  export default {
-    props:{
-      title:String,
-      type:String,
-      cateList:Array,
-    },
-    methods:{
-      goDetails(item) {
-        this.$router.push({
-          name: 'categoryDetails',
-          params: { name: item.name },
-          query: { gender: this.type }
-        });
-      }
+export default {
+  props: {
+    title: String,
+    type: String,
+    cateList: Array,
+  },
+  methods: {
+    goDetails(item) {
+      this.$router.push({
+        name: 'categoryDetails',
+        params: { name: item.name },
+        query: { gender: this.type }
+      });
     }
   }
+}
+
 </script>
 <style lang="less" scoped>
 .channels {
@@ -43,42 +44,43 @@
 }
 
 .channel {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
   overflow: hidden;
   clear: both;
   .ch {
     text-align: left;
     float: left;
-    width: 40%;
+    width: 41.5%;
     line-height: 4rem;
     height: 4rem;
     padding: 0.5rem 0;
-      img {
-        width: 3rem;
-        height: 4rem;
+    img {
+      width: 3rem;
+      height: 4rem;
+    }
+    p {
+      display: inline-block;
+      position: absolute;
+      float: right;
+      line-height: 2rem;
+      height: 2rem;
+      padding-left: 0.5rem;
+      font-family: 宋体;
+      font-size: 14px;
+      &:last-child {
+        margin-top: 2rem;
+        font-size: 12px;
+        color: #666;
       }
-      p {
-        display: inline-block;
-        position: absolute;
-        float: right;
-        line-height: 2rem;
-        height: 2rem;
-        padding-left: 0.5rem;
-        font-family: 宋体;
-        font-size: 14px;
-        &:last-child {
-          margin-top: 2rem;
-          font-size: 12px;
-          color: #666;
-        }
-      }
+    }
   }
   .sl {
     border-right: 1px solid #ddd;
     height: 2rem;
     width: 1px;
     float: left;
-    margin: 1.5rem 1.5rem;
+    margin: 8%;
   }
 }
+
 </style>

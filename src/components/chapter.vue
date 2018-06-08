@@ -4,7 +4,10 @@
     <Head :title="'目录'" v-show="sb">
     </Head>
     <div v-show="sb">
-      <p class="cpd">共<span>{{chapters.length}}</span>章</p>
+      <p class="cpd">共<span>{{chapters.length}}</span>章
+        <!-- <span>正序</span>
+        <span>倒序</span> -->
+      </p>
       <div class="chap">
         <v-bar wrapper="wrapper" vBar="false" vBarInternal="false">
           <div>
@@ -29,7 +32,7 @@
         <span class="back" @click="back"><i class="mintui mintui-back"></i></span>
       </div>
       <div class="setRight" @click="getContent(index)">
-        <span>刷新</span>
+        <span class="sp">刷新</span>
       </div>
     </div>
     <div class="modal" v-show="popModal" @click="close">
@@ -139,7 +142,9 @@ export default {
       'SET_NIGHT',
       'SET_FACE',
       'SET_SKIN_COLOR',
-      'ADD_SHELF'
+      'ADD_SHELF',
+      'DEL_BROWSE_RECORDS',
+      'ADD_BROWSE_RECORDS'
     ]),
     changeSkin(idx) {
       let index = idx;
@@ -175,12 +180,12 @@ export default {
     },
     getContent(index) {
       this.popupVisible = false;
-      this.popModal = false;
-      this.bArr = [];
+      this.popModal = false;   
       if (index < 0) {
         this.index = 0;
         return;
       }
+      this.bArr = [];
       this.index = index;
       Indicator.open();
       api.getChapterContent(this.chapters[index].id)
@@ -211,7 +216,7 @@ export default {
     setTextFmt(s, title) {
       var style = this.typeFace[this.face];
       var lineH = +style.lineHeight.replace(/px$/, '');
-      var pageH = window.innerHeight - 40 - 16 - lineH;
+      var pageH = window.innerHeight - 24 - 16 - lineH;
       var pageW = window.innerWidth - 32;
       var letterSpacing = style.letterSpacing ? +style.letterSpacing.replace(/px$/, '') : 0;
       var fwidth = +style.fontSize.replace(/px$/, '') + letterSpacing;
@@ -280,7 +285,7 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (!this.curBook.isShelf && !this.sb) {
+    if (!this.curBook.isShelf && !(this.curBook.already === '')) {
       this.showDialog = true;
       this.$refs.dialog.promiseFn()
         .then(() => {
@@ -288,11 +293,14 @@ export default {
           book.isShelf = true;
           this.SET_CUR_BOOK(book);
           this.ADD_SHELF(book);
+          this.DEL_BROWSE_RECORDS(book.id);
           this.showDialog = false;
           next();
         })
         .catch((r) => {
           this.showDialog = false;
+          let book = this.curBook;
+          this.ADD_BROWSE_RECORDS(book)
           if (r === 'close') {
             next(false);
           } else {
@@ -317,7 +325,7 @@ export default {
           Indicator.close();
           return;
         }
-        this.index = this.curBook.already;
+        this.index = this.curBook.already === '' ? 0 : this.curBook.already;
         this.getContent(this.index);
       });
   },

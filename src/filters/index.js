@@ -1,11 +1,11 @@
-import {staUrl} from '../common/common';
+import { staUrl } from '../common/common';
 
 const fmtDate = (value, type) => {
   let fmtType = type === undefined ? 'yyyy-MM-dd' : type;
   let t = new Date(value);
   let tf = (i) => {
     return (i < 10 ? '0' : '') + i;
-  }
+  };
   return fmtType.replace(/yyyy|MM|dd|hh|mm|ss/g, (p) => {
     switch (p) {
       case 'yyyy':
@@ -22,24 +22,24 @@ const fmtDate = (value, type) => {
         return tf(t.getSeconds());
     }
   });
-}
+};
 
 const convert = (value) => {
   return (value / 10000).toFixed(2) + '万';
-}
+};
 
-const staticUrl = (value)=>{
-  if(value === undefined){
+const staticUrl = (value) => {
+  if (value === undefined) {
     return;
   }
-  if(value.indexOf(staUrl) > -1){
+  if (value.indexOf(staUrl) > -1) {
     return value;
   }
   return staUrl + value;
-}
+};
 
 export {
   fmtDate,
   convert,
   staticUrl
-}
+};

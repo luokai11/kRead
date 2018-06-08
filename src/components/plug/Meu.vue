@@ -1,10 +1,10 @@
 <template>
   <div class="meu">
-    <div class="item" v-for="(meu,index) in meuList"  @click="changeMeu(index,meu)" :class='{checked:selected === meu.name}'>
-       <router-link :to="meu.myLink">
-          <i class="mintui" :class="[meu.icon]"></i>
-          <div class="title">{{meu.title}}</div>
-       </router-link>
+    <div class="item" v-for="(meu,index) in meuList" @click="changeMeu(index,meu)" :class='{checked:selected === meu.name}'>
+      <router-link :to="meu.myLink">
+        <i class="mintui" :class="[meu.icon]"></i>
+        <div class="title">{{meu.title}}</div>
+      </router-link>
     </div>
   </div>
 </template>

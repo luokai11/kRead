@@ -1,4 +1,4 @@
-export const setStore = (name, value)=>{
+export const setStore = (name, value) => {
   if (!name) {
     return;
   }
@@ -8,15 +8,15 @@ export const setStore = (name, value)=>{
   window.localStorage.setItem(name, value);
 };
 
-export const getStore = (name)=>{
-  if(!name){
+export const getStore = (name) => {
+  if (!name) {
     return;
   }
   return window.localStorage.getItem(name);
 };
 
-export const removeStore = (name)=>{
-  if(!name){
+export const removeStore = (name) => {
+  if (!name) {
     return;
   }
   window.localStorage.removeItem(name);
@@ -48,7 +48,7 @@ export const typeFace = {
     lineHeight: '24px',
     letterSpacing: '0px'
   },
-  large:{
+  large: {
     fontSize: '20px',
     lineHeight: '24px',
     letterSpacing: '0.5px'
@@ -64,4 +64,3 @@ export const types = [
 ];
 
 export const staUrl = 'http://statics.zhuishushenqi.com';
-

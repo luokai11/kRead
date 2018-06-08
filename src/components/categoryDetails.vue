@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+
     <Head :title="$route.params.name"></Head>
     <div v-if="isShow">
       <div class="selects select-pos" style="line-height: 2rem" @click="openDown">
@@ -13,7 +14,7 @@
           <div class="scr">
             <ul>
               <li v-for="i in types" :class="{active:i.value===type}" @click="selectType(i)">
-              {{i.text}}</li>
+                {{i.text}}</li>
             </ul>
           </div>
         </div>
@@ -22,16 +23,13 @@
             <ul>
               <li :class="{active:minor === ''}" @click="selectMins('')">全部</li>
               <li v-for="i in mins" :class="{active:minor === i}" @click="selectMins(i)">
-              {{i}}</li>
+                {{i}}</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div :style="scrH" ref="bList" class="bList" v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false">
+    <div :style="scrH" ref="bList" class="bList" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
       <BookList :bookList="bookList" :imgClass="'sImg'"></BookList>
     </div>
   </div>
@@ -39,12 +37,12 @@
 <script>
 import { Indicator, InfiniteScroll } from 'mint-ui';
 import api from '../api/api';
-import {types} from '../common/common';
+import { types } from '../common/common';
 import Head from './plug/Head';
 import BookList from './plug/BookList';
 export default {
   name: 'list',
-  components:{
+  components: {
     Head,
     BookList
   },
@@ -60,7 +58,7 @@ export default {
       limit: 20,
       page: 1,
       mins: [],
-      types:types,
+      types: types,
       scrH: {
         'height': ''
       },
@@ -165,7 +163,6 @@ export default {
 
 </script>
 <style lang="less" scoped>
-
 .down {
   vertical-align: middle;
 }

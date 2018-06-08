@@ -1,9 +1,10 @@
 <template>
   <div class="searchBook" v-if="hh">
+
     <Head>
       <div slot="right">
         <i class="mintui mintui-search input_icon" @click="search"></i>
-        <i class="mintui mintui-shanchu del" v-show="keyWord.length>0" @click="removekey"></i>
+        <span class=" del" v-show="keyWord.length>0" @click="removekey">&times</span>
         <input type="text" class="search" placeholder="请输入关键字" v-model="keyWord">
       </div>
     </Head>
@@ -38,11 +39,11 @@
 import api from '../api/api';
 import Head from './plug/Head';
 import BookList from './plug/BookList';
-import {Indicator} from 'mint-ui';
-import {mapState,mapMutations} from 'vuex';
+import { Indicator } from 'mint-ui';
+import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'searchBook',
-  components :{
+  components: {
     Head,
     BookList
   },
@@ -50,24 +51,24 @@ export default {
     return {
       keyWord: '',
       books: [],
-      hotWords:[],
-      hotRandoms:[],
+      hotWords: [],
+      hotRandoms: [],
       show: 'kh',
       hh: true
     }
   },
-  created(){
+  created() {
     this.INIT_STATE();
     api.getHotWords()
-      .then((res)=>{
+      .then((res) => {
         this.hotWords = res.data.hotWords;
         this.getRandom();
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
-      })
+      });
   },
-  computed:{
+  computed: {
     ...mapState([
       'searchRecords'
     ])
@@ -79,19 +80,22 @@ export default {
       'DEL_SEARCH_RECORDS',
       'EMPTY_SEARCH_RECORDS'
     ]),
-    getRandom(){
+    getRandom() {
       let arr = this.hotWords.slice();
       let arr1 = [];
-      for(let i= 0;i<6;i++){
-        let idx = Math.ceil(Math.random()*arr.length-1);
+      for (let i = 0; i < 6; i++) {
+        let idx = Math.ceil(Math.random() * arr.length - 1);
         arr1.push(arr[idx]);
-        arr.splice(idx,1);
+        arr.splice(idx, 1);
       }
       this.hotRandoms = arr1.slice();
     },
     search() {
-      this.show = 'bs';
       let keyWord = this.keyWord.trim().replace(/\s/g, '');
+      if(keyWord === ''){
+        return;
+      }
+      this.show = 'bs';
       this.ADD_SEARCH_RECORDS(keyWord);
       Indicator.open('查询中');
       api.fuzzySearch(keyWord)
@@ -112,26 +116,27 @@ export default {
       this.keyWord = key;
       this.search();
     },
-    deletekey(key){
+    deletekey(key) {
       this.DEL_SEARCH_RECORDS(key);
     },
-    empty(){
+    empty() {
       this.EMPTY_SEARCH_RECORDS();
     }
   },
-  watch:{
-    'keyWord':function(){
+  watch: {
+    'keyWord': function() {
       let keyWord = this.keyWord.trim().replace(/\s/g, '');
-      if(keyWord.length === 0){
+      if (keyWord.length === 0) {
         this.show = 'kh';
         this.books = [];
       }
     }
   }
 }
+
 </script>
 <style lang="less" scoped>
-.hotWords{
+.hotWords {
   .hotHead {
     clear: both;
     overflow: hidden;
@@ -181,11 +186,15 @@ input:focus {
 }
 
 .del {
+  padding: 0;
   position: absolute;
   right: 50px;
-  font-size: 14px;
-  line-height: 25px;
-  top: 9px;
+  background: #555;
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+  top: 11px;
+  border-radius: 9px;
 }
 
 .searchContent {
@@ -216,6 +225,7 @@ input:focus {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2
 }
+
 .emp {
   text-align: center;
   color: #17E;
@@ -223,4 +233,5 @@ input:focus {
   cursor: pointer;
   padding-left: 0px !important;
 }
+
 </style>

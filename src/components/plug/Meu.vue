@@ -41,7 +41,7 @@ export default {
 </script>
 <style scoped>
 .meu {
-  z-index: 999;
+  z-index: 88;
   position: fixed;
   display: flex;
   justify-content: space-around;

@@ -8,7 +8,8 @@ const state = {
 	browseRecords: [],
 	searchRecords: [],
 	isNight: false,
-	face: 'normal',
+	lineHeight:20,
+	fontSize:16,
 	skinColor: 0
 };
 

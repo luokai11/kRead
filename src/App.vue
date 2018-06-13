@@ -25,9 +25,11 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
+    box-sizing: content-box;
 }
 
 #app {
+  font-size: 16px;
   font-family: SimSun;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -2,13 +2,15 @@
   <div class="channels">
     <h3>{{title}}</h3>
     <div class="channel">
-      <div v-for="(c,index) in cateList" @click="goDetails(c)">
-        <div class="ch">
-          <img :src="c.bookCover[0] | staticUrl">
-          <p>{{c.name}}</p>
-          <p>{{c.bookCount}}本</p>
-        </div>
-        <div class="sl" v-if="index%2===0"></div>
+ 
+        <div class="ch" v-for="(c,index) in cateList" @click="goDetails(c)">
+          <div class="cl">       
+            <img :src="c.bookCover[0] | staticUrl">
+          </div>
+          <div class="cr">
+            <div>{{c.name}}</div>
+            <div>{{c.bookCount}}本</div>
+          </div>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@ export default {
   .ch {
     text-align: left;
     float: left;
-    width: 41.5%;
+    width: 50%;
     line-height: 4rem;
     height: 4rem;
     padding: 0.5rem 0;
@@ -58,28 +60,20 @@ export default {
       width: 3rem;
       height: 4rem;
     }
-    p {
-      display: inline-block;
-      position: absolute;
-      float: right;
-      line-height: 2rem;
+  }
+  .cr {
+    float:left;
+    padding-left: 0.5rem;
+    color: #333;
+    font-size: 14px;
+    div {
       height: 2rem;
-      padding-left: 0.5rem;
-      font-family: 宋体;
-      font-size: 14px;
-      &:last-child {
-        margin-top: 2rem;
-        font-size: 12px;
-        color: #666;
-      }
+      line-height: 2rem;
     }
   }
-  .sl {
-    border-right: 1px solid #ddd;
-    height: 2rem;
-    width: 1px;
+  .cl {
     float: left;
-    margin: 8%;
+    padding-left: 0.5rem
   }
 }
 

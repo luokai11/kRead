@@ -9,8 +9,7 @@ run.bat
 api_server.bat
 api_server
 app.js
-config/
-build/
+
 
 
 # Editor directories and files

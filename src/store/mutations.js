@@ -17,9 +17,10 @@ import {
   DEL_SHELF,
   UPDATA_SHELF,
   EMPTY_SHELF,
-  SET_FACE,
+  SET_LINE_HEIGHT,
   SET_SKIN_COLOR,
-  SET_NIGHT
+  SET_NIGHT,
+  SET_FONT_SIZE
 } from './mutation-types';
 
 export default {
@@ -38,7 +39,8 @@ export default {
     }
     state.skinColor = getStore('skinColor') ? +getStore('skinColor') : 0;
     state.isNight = getStore('isNight') === 'true' ? true : false;
-    state.face = getStore('face') ? getStore('face') : 'normal';
+    state.lineHeight = getStore('lineHeight') ? getStore('lineHeight') : 20;
+    state.fontSize = getStore('fontSize') ? getStore('fontSize') : 16;
   },
   [ADD_SEARCH_RECORDS](state, value) {
     let index = Array.indexOf(state.searchRecords, value);
@@ -121,9 +123,9 @@ export default {
     state.bookShelfList = [];
     removeStore('bookShelfList');
   },
-  [SET_FACE](state, face) {
-    state.face = face;
-    setStore('face', state.face);
+  [SET_LINE_HEIGHT](state, value) {
+    state.lineHeight = value;
+    setStore('lineHeight', state.lineHeight);
   },
   [SET_SKIN_COLOR](state, idx) {
     state.skinColor = idx;
@@ -132,5 +134,9 @@ export default {
   [SET_NIGHT](state, bool) {
     state.isNight = bool;
     setStore('isNight', state.isNight);
+  },
+  [SET_FONT_SIZE](state, value) {
+    state.fontSize = value;
+    setStore('fontSize', state.fontSize);
   }
 };

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-// const api = 'http://api.zhuishushenqi.com';
-// const chapter = 'http://chapter2.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com';
-const api = '/api';
-const chapter = '/chapter';
+const api = 'http://api.zhuishushenqi.com';
+const chapter = 'http://chapter2.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com';
+// const api = '/api';
+// const chapter = '/chapter';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.timeout = 20000;

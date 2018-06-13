@@ -14,9 +14,8 @@
       </div>
       <div class="contents" v-for="(items,index) in choiceList" v-if="items.sex === show">
         <div class="cnt" @click="more(items)">
-          <h4>{{items.title}}</h4>
-          <i class="mintui mintui-gengduo1"></i>
-          <span>更多</span>
+          <h4>{{items.title}}</h4>       
+          <span>更多<i class="mintui mintui-gengduo1"></i></span>
         </div>
         <BookList :bookList="items.books" :imgClass="'sImg'"></BookList>
       </div>
@@ -109,14 +108,11 @@ export default {
   }
   span {
     float: right;
-    font-size: 12px;
+    font-size: 13px;
     color: #888;
   }
   i {
-    float: right;
-    font-size: 14px;
-    padding-left: 5px;
-    color: #888;
+    font-size: 12px;
   }
 }
 

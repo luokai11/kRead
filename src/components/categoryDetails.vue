@@ -3,11 +3,11 @@
 
     <Head :title="$route.params.name"></Head>
     <div v-if="isShow">
-      <div class="selects select-pos" style="line-height: 2rem" @click="openDown">
+      <div class="selects select-pos" @click="openDown">
         <span>{{minor===''? '全部' : minor}}</span>
         <span>-</span>
         <span>按{{typeName}}</span>
-        <i class="mintui mintui-xiangxia down"></i>
+        <span><i class="mintui mintui-xiangxia down"></i></span>
       </div>
       <div class="selects select-pos" v-show="bShow">
         <div class="select-item">
@@ -176,6 +176,7 @@ export default {
   background-color: #f1f1f1;
   color: #000;
   font-family: STXingkai;
+  font-size: 14px;
 }
 
 .select-pos {
@@ -184,27 +185,26 @@ export default {
   top: 2.5rem;
   left: 0;
   width: 100%;
+  line-height: 2rem;
   opacity: 1;
   -webkit-transition: all .1s ease;
   z-index: 100;
 }
 
 .select-item {
-  height: 2rem;
-  line-height: 2rem;
-  overflow-x: auto;
   .scr {
     overflow: hidden;
     width: 100%;
     height: 2rem;
+    line-height: 2rem;
   }
   ul {
-    height: 2.5rem;
     font-size: 0;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
     text-align: left;
+    height: 2rem;
     li {
       display: inline-block;
       font-size: 14px;

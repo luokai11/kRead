@@ -10,6 +10,9 @@ export const ADD_SHELF = 'ADD_SHELF';
 export const DEL_SHELF = 'DEL_SHELF';
 export const UPDATA_SHELF = 'UPDATA_SHELF';
 export const EMPTY_SHELF = 'EMPTY_SHELF';
-export const SET_FACE = 'SET_FACE';
 export const SET_SKIN_COLOR = 'SET_SKIN_COLOR';
 export const SET_NIGHT = 'SET_NIGHT';
+export const SET_FONT_SIZE = 'SET_FONT_SIZE';
+export const SET_LINE_HEIGHT = 'SET_LINE_HEIGHT';
+
+

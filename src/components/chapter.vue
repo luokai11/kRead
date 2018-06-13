@@ -4,9 +4,8 @@
     <Head :title="'目录'" v-show="sb">
     </Head>
     <div v-show="sb">
-      <p class="cpd">共<span>{{chapters.length}}</span>章
-        <!-- <span>正序</span>
-        <span>倒序</span> -->
+      <p class="cpd">
+        共<span>{{chapters.length}}</span>章
       </p>
       <div class="chap">
         <v-bar wrapper="wrapper" vBar="false" vBarInternal="false">
@@ -17,7 +16,7 @@
         </v-bar>
       </div>
     </div>
-    <div v-show="!sb" class="bc" :style="[typeFace[face],bgColor[skinColor]]">
+    <div v-show="!sb" class="bc" :style="[tps,bgColor[skinColor]]">
       <div id="banner" :style="screen">
         <div class="swiper-container" style="height:inherit" @click="showPop">
           <swiper :options="swiperOption" ref="mySwiper" style="height:inherit">
@@ -60,10 +59,14 @@
       </div>
       <div v-show="popChange==='setUp'">
         <div class="flex fl_mg">
-          <div class="fl_item" @click="changeSize('small')">small</div>
-          <div class="fl_item" @click="changeSize('normal')">normal</div>
-          <div class="fl_item" @click="changeSize('big')">big</div>
-          <div class="fl_item" @click="changeSize('large')">large</div>
+          <div class="fl_item" @click="prevFt">A-</div>
+          <div class="fl_item">{{fontSize}}</div>
+          <div class="fl_item" @click="nextFt">A+</div>
+        </div>
+        <div class="flex fl_mg">
+          <div class="fl_item" @click="prevLh">行间距-</div>
+          <div class="fl_item">{{lineHeight}}</div>
+          <div class="fl_item" @click="nextLh">行间距+</div>
         </div>
         <div class="flex fl_mg">
           <div v-for="(item,index) in bgColor" :key="index" :style="item" class="bgc" @click="changeSkin(index)">
@@ -82,7 +85,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { Indicator } from 'mint-ui';
 import { mapState, mapMutations } from 'vuex';
 import api from '../api/api';
-import { bgColor, typeFace } from '../common/common';
+import { bgColor } from '../common/common';
 import Head from './plug/Head';
 import Dialog from './plug/Dialog';
 export default {
@@ -96,6 +99,12 @@ export default {
       popupVisible: false,
       popModal: false,
       showDialog: false,
+      showSort:'positive',
+      tps: {
+        'letterSpacing': '',
+        'lineHeight': '',
+        'fontSize': ''
+      },
       ps: '',
       sb: false,
       content: '',
@@ -113,10 +122,9 @@ export default {
         confirmText: '加入书架'
       },
       popChange: 'nor',
-      typeFace: typeFace,
       swiperOption: {
         direction: 'horizontal',
-        effect: 'coverflow',
+        effect: 'slide',
         pagination: {
           el: '.swiper-pagination',
           type: 'fraction'
@@ -129,9 +137,9 @@ export default {
             if (this.swiper.activeIndex === (this.swiper.slidesGrid.length - 1) && this.swiper.swipeDirection === 'next') {
               this.getContent(this.index + 1);
             }
-          },
+          }
         },
-      },
+      }
     }
   },
   methods: {
@@ -140,12 +148,69 @@ export default {
       'SET_CUR_BOOK',
       'UPDATA_SHELF',
       'SET_NIGHT',
-      'SET_FACE',
+      'SET_FONT_SIZE',
       'SET_SKIN_COLOR',
       'ADD_SHELF',
       'DEL_BROWSE_RECORDS',
-      'ADD_BROWSE_RECORDS'
+      'ADD_BROWSE_RECORDS',
+      'SET_LINE_HEIGHT'
     ]),
+    prevLh(){
+      let lh = +this.lineHeight;
+      if (lh === 16) {
+        return;
+      }
+      this.SET_LINE_HEIGHT(--lh);
+      this.setTps();
+      this.bArr = [];
+      this.ps = this.setTextFmt(this.content, this.title)
+      this.bArr = this.ps.split('\n');
+    },
+    nextLh(){
+      let lh = +this.lineHeight;
+      if (lh === 30) {
+        return;
+      }
+      this.SET_LINE_HEIGHT(++lh);
+      this.setTps();
+      this.bArr = [];
+      this.ps = this.setTextFmt(this.content, this.title)
+      this.bArr = this.ps.split('\n');
+    },
+    prevFt() {
+      let size = +this.fontSize;
+      if (size === 12) {
+        return;
+      }
+      this.SET_FONT_SIZE(--size);
+      this.setTps();
+      this.bArr = [];
+      this.ps = this.setTextFmt(this.content, this.title)
+      this.bArr = this.ps.split('\n');
+    },
+    nextFt() {
+      let size = +this.fontSize;
+      if (size === 26) {
+        return;
+      }
+      this.SET_FONT_SIZE(++size);
+      this.setTps();
+      this.bArr = [];
+      this.ps = this.setTextFmt(this.content, this.title)
+      this.bArr = this.ps.split('\n');
+    },
+    setTps() {
+      this.tps.fontSize = +this.fontSize + 'px';
+      this.tps.lineHeight = +this.lineHeight + 'px';
+      let pw = window.innerWidth - 32;
+      let lineCount = Math.floor(pw / +this.fontSize);
+      let remain = pw % +this.fontSize;
+      if (pw % +this.fontSize === 0) {
+        this.tps.letterSpacing = '0px';
+      } else {
+        this.tps.letterSpacing = Math.floor(remain / lineCount * 100) / 100 - 0.02 + 'px';
+      }
+    },
     changeSkin(idx) {
       let index = idx;
       this.SET_SKIN_COLOR(index);
@@ -180,7 +245,7 @@ export default {
     },
     getContent(index) {
       this.popupVisible = false;
-      this.popModal = false;   
+      this.popModal = false;
       if (index < 0) {
         this.index = 0;
         return;
@@ -214,11 +279,11 @@ export default {
         })
     },
     setTextFmt(s, title) {
-      var style = this.typeFace[this.face];
+      let style = this.tps;
       var lineH = +style.lineHeight.replace(/px$/, '');
-      var pageH = window.innerHeight - 24 - 16 - lineH;
+      var pageH = window.innerHeight - 40 - 16 - lineH;
       var pageW = window.innerWidth - 32;
-      var letterSpacing = style.letterSpacing ? +style.letterSpacing.replace(/px$/, '') : 0;
+      var letterSpacing = +style.letterSpacing.replace(/px$/, '');
       var fwidth = +style.fontSize.replace(/px$/, '') + letterSpacing;
       var maxLine = Math.floor(pageH / lineH);
       var pageLength = 0; // 页面长度计数器，单位：行
@@ -238,7 +303,7 @@ export default {
           let cur = arr[i][j];
           if (pageLength < maxLine) { // 每页未满
             lineWidth += fwidth;
-            if (lineWidth < pageW) {
+            if (lineWidth < pageW && (pageW - lineWidth) >= fwidth) {
               lineStr += '<span>' + cur + '</span>';
               lineCharCounter += cur.length;
               j++;
@@ -316,7 +381,8 @@ export default {
     this.INIT_STATE();
     this.bidx = this.skinColor;
     this.screen.height = window.innerHeight - 16 + 'px';
-    this.screen.width = window.innerWidth - 28 + 'px';
+    this.screen.width = window.innerWidth - 32 + 'px';
+    this.setTps();
     Indicator.open();
     api.getChapters(this.$route.params.id)
       .then((res) => {
@@ -334,7 +400,8 @@ export default {
       'curBook',
       'isNight',
       'skinColor',
-      'face'
+      'fontSize',
+      'lineHeight'
     ]),
     swiper() {
       return this.$refs.mySwiper.swiper
@@ -408,6 +475,7 @@ export default {
 .popTop {
   top: 0;
   height: 2.5rem;
+  z-index: 100;
 }
 
 .down {
@@ -417,17 +485,6 @@ export default {
     padding: 0.5rem 0;
     width: 5rem;
   }
-}
-
-.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  background: #000;
-  z-index: 99;
 }
 
 .bgc {
@@ -448,8 +505,8 @@ export default {
 }
 
 .swiper-pagination {
-  position: relative;
-  bottom: 16px;
+  position: absolute;
+  bottom: -5px;
   font-size: 12px;
   text-align: left;
 }

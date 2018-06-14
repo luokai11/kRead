@@ -103,7 +103,7 @@ export default {
   line-height: 18px;
   h4 {
     float: left;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     border-left: 2px solid red;
   }
   span {

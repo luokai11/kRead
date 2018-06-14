@@ -1,6 +1,7 @@
 <template>
   <div class="setUp">
     <div class="setLeft">
+      <slot name="le"></slot>
       <span v-if="isBack" class="back" @click="back"><i class="mintui mintui-back"></i></span>
       <div class="back">{{title}}</div>
       <slot name="left"></slot>

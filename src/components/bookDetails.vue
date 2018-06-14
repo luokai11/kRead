@@ -357,9 +357,10 @@ export default {
 }
 
 .bg {
-  background: url('/static/bc.png') no-repeat bottom;
+ /* background: url('/static/bc.png') no-repeat bottom;
   background-size: 100% 100%;
-  background-attachment: fixed;
+  background-attachment: fixed;*/
+  background-color:#000;
 }
 
 .back {
@@ -378,7 +379,7 @@ export default {
   line-height: 2.5rem;
   width: 100%;
   color: #fff;
-  background: url('/static/bc.png') no-repeat;
+  /*background: url('/static/bc.png') no-repeat;*/
 }
 
 .top {

@@ -1,7 +1,8 @@
 <template>
   <div class="chapter">
 
-    <Head :title="'目录'" v-show="sb">
+    <Head :title="'目录'" :isBack="false" v-show="sb">
+      <span slot="le" class="back" @click="back1"><i class="mintui mintui-back"></i></span>
     </Head>
     <div v-show="sb">
       <p class="cpd">
@@ -10,7 +11,11 @@
       <div class="chap">
         <v-bar wrapper="wrapper" vBar="false" vBarInternal="false">
           <div>
-            <p v-for="(c,idx) in chapters" @click="getContent(idx,c)" :class="{selectd:idx === index}">{{c.title}}<span v-if="c.isVip" style="color:red;float: right;    padding-right: 5px;">vip</span>
+            <p v-for="(c,idx) in chapters" @click="getContent(idx,c)" :class="{selectd:idx === index}">
+              <span class="sp1">
+                {{c.title}}
+              </span>
+              <span v-if="c.isVip" style="color:red;float: right;    padding-right: 5px;">vip</span>
             </p>
           </div>
         </v-bar>
@@ -95,6 +100,7 @@ export default {
     return {
       chapters: [],
       bArr: [],
+      routerTo:false,
       bgColor: bgColor,
       popupVisible: false,
       popModal: false,
@@ -241,11 +247,19 @@ export default {
       this.popModal = true;
     },
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1);     
+    },
+    back1(){
+      if(this.routerTo){
+        this.sb = false;
+      }else {
+        this.$router.go(-1);      
+      }
     },
     getContent(index) {
       this.popupVisible = false;
       this.popModal = false;
+      this.routerTo = true;
       if (index < 0) {
         this.index = 0;
         return;
@@ -388,6 +402,7 @@ export default {
       .then((res) => {
         this.chapters = res.data.chapters;
         if (this.$route.query.isChap) {
+          this.routerTo = false;
           Indicator.close();
           return;
         }
@@ -439,6 +454,13 @@ export default {
     padding: 10px 16px;
     border-bottom: 1px solid #ddd;
     font-size: 12px;
+    .sp1{
+      display: inline-block;
+      width: 250px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
   .wrapper {
     width: 100%;

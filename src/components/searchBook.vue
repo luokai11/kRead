@@ -19,7 +19,7 @@
             <span class="sp2" @click="getRandom">换一批</span>
           </div>
           <ul>
-            <li v-for="h in  hotRandoms" @click="selectKey(h)">{{h}}</li>
+            <li v-for="h in  hotRandoms" @click="selectKey(h.word)">{{h.word}}</li>
           </ul>
         </div>
         <ul class="scrollH">
@@ -61,7 +61,7 @@ export default {
     this.INIT_STATE();
     api.getHotWords()
       .then((res) => {
-        this.hotWords = res.data.hotWords;
+        this.hotWords = res.data.searchHotWords;
         this.getRandom();
       })
       .catch((error) => {
@@ -83,7 +83,7 @@ export default {
     getRandom() {
       let arr = this.hotWords.slice();
       let arr1 = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 10; i++) {
         let idx = Math.ceil(Math.random() * arr.length - 1);
         arr1.push(arr[idx]);
         arr.splice(idx, 1);

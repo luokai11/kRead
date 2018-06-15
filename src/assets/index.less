@@ -37,6 +37,22 @@ input {
   overflow: hidden;
 }
 
+.addModal {
+    position: fixed;
+    top: 3rem;
+    right: 0;
+    background: #000;
+    color: #fff;
+    z-index: 100;
+    font-size:12px;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    span{
+      display: inline-block;
+      padding: 0.75rem 1rem;
+    }
+}
+
 .nav {
   display: flex;
   justify-content: space-around;
@@ -48,6 +64,16 @@ input {
     font-size: 12px;
     color: #A00;
   }
+}
+
+.p2 {
+  margin: 0.5rem 0;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: #444;
+  font-size: 12px;
 }
 
 .star-rating {
@@ -444,15 +470,15 @@ input {
 }
 
 .isDiv {
-  margin-top: 25%;
+  margin-top: 20%;
   .nodes {
     color: #888;
     font-size: 14px;
     margin-bottom: 1rem;
   }
   img {
-    width: 12rem;
-    height: 14rem;
+    width: 10rem;
+    height: 12rem;
     opacity: 0.4;
   }
 }
@@ -470,7 +496,6 @@ input {
   }
   i {
     font-style: normal;
-    margin-left: -5px;
   }
 }
 

@@ -7,7 +7,7 @@
       <div class="comments">
         <div class="comment">
           <div class="bCom">
-            <img class="img" :src="activityAvatar | staticUrl">
+            <img class="img" :src="obj.author.avatar | staticUrl">
           </div>
           <div class="rCom">
             <p style="color:#2399bf">{{obj.author.nickname}}</p>
@@ -24,7 +24,7 @@
       <div class="comments" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
         <div class="comment" v-for="(r,index) in reviews">
           <div class="bCom">
-            <img class="img" :src="activityAvatar | staticUrl">
+            <img class="img" :src="r.author.avatar | staticUrl">
           </div>
           <div class="rCom">
             <p style="color:#2399bf">{{r.author.nickname}}</p>
@@ -100,6 +100,7 @@ export default {
       api.getReviewDetails(id)
         .then((res) => {
           this.obj = res.data.review;
+          console.log(this.obj)
           this.activityAvatar = this.obj.author.activityAvatar;
         })
         .catch((error) => {

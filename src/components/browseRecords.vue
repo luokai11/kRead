@@ -87,7 +87,9 @@ export default {
     }
   },
   created() {
-    this.INIT_STATE();
+    if(this.browseRecords.length === 0){
+      this.isDiv = true;
+    }
   },
   computed: {
     ...mapState([
@@ -101,9 +103,6 @@ export default {
       'ADD_SHELF',
       'EMPTY_BROWSE_RECORDS'
     ]),
-    back() {
-      back(this);
-    },
     delBook(id) {
       this.DEL_BROWSE_RECORDS(id);
       this.popupVisible = false;
@@ -150,6 +149,8 @@ export default {
     'browseRecords': function() {
       if (this.browseRecords.length === 0) {
         this.isDiv = true;
+      }else {
+        this.isDiv = false;
       }
     }
   }

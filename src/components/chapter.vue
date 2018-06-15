@@ -39,6 +39,11 @@
         <span class="sp">刷新</span>
       </div>
     </div>
+    <transition name="fade">
+      <div v-show="popupVisible && !this.curBook.isShelf" class="addModal">  
+        <span @click="add">加入书架</span>   
+      </div>
+    </transition>
     <div class="modal" v-show="popModal" @click="close">
     </div>
     <mt-popup v-model="popupVisible" position="bottom" :modal="false" class="popup">
@@ -161,6 +166,15 @@ export default {
       'ADD_BROWSE_RECORDS',
       'SET_LINE_HEIGHT'
     ]),
+    add(){
+      this.popupVisible = false;
+      this.popModal = false;
+      let book = this.curBook;
+      book.isShelf = true;
+      this.SET_CUR_BOOK(book);
+      this.ADD_SHELF(book);
+      this.DEL_BROWSE_RECORDS(book.id);
+    },
     prevLh(){
       let lh = +this.lineHeight;
       if (lh === 16) {

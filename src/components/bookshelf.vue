@@ -1,6 +1,5 @@
 <template>
   <div class="bookshelf">
-
     <Head :isBack="false" :title="'作品'">
       <i slot="right" class="mintui mintui-search" @click="goSearch"></i>
       <i slot="right" class="mintui mintui-shanchu" @click="empty" v-if="!isDiv"></i>
@@ -55,20 +54,16 @@
         </div>
         <div class="operate">
           <div class="ope" @click="details(book,true)">
-            <i class="mintui mintui-mulu"></i>
+            <i class="mintui mintui-yuepiao"></i>
             <div>详情</div>
+          </div>
+          <div class="ope" @click="goChapter(book.id)">
+            <i class="mintui mintui-mulu"></i>
+            <div>目录</div>
           </div>
           <div class="ope" @click="delBook(book.id)">
             <i class="mintui mintui-shanchu"></i>
             <div>删除</div>
-          </div>
-          <div class="ope">
-            <i class="mintui mintui-zhiding"></i>
-            <div>置顶</div>
-          </div>
-          <div class="ope">
-            <i class="mintui mintui-fenxiang"></i>
-            <div>分享</div>
           </div>
         </div>
       </div>
@@ -103,6 +98,9 @@ export default {
   },
   created() {
     this.INIT_STATE();
+    if(this.bookShelfList.length === 0){
+      this.isDiv = true;
+    }
   },
   computed: {
     ...mapState([
@@ -152,14 +150,20 @@ export default {
         .catch(() => {
           this.showDialog = false;
         });
+    },
+    goChapter(id){
+      this.popupVisible = false;
+      this.$router.push({
+        name: 'chapter',
+        params: { id: id },
+        query: { isChap: true }
+      });
     }
   },
   watch: {
     'bookShelfList': function() {
       if (this.bookShelfList.length === 0) {
         this.isDiv = true;
-      }else {
-        this.isDiv = false;
       }
     }
   }
@@ -178,73 +182,6 @@ export default {
 
 .content .books:last-child {
   border-bottom: 1px solid #ddd;
-}
-
-.popup {
-  width: 100%;
-  font-family: 宋体;
-}
-
-.d3 {
-  font-size: 14px;
-  text-align: left;
-  letter-spacing: 1px;
-  padding: 0.5rem 0.5rem;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
-  line-height: 22px;
-}
-
-.d1 {
-  line-height: 4rem;
-  height: 4rem;
-  background-image: url(/static/bc.png);
-  color: #EE7700;
-  text-align: left;
-  img {
-    width: 4rem;
-    height: 4.5rem;
-    float: left;
-    margin-top: -0.5rem;
-    padding-left: 0.5rem;
-  }
-
-  div {
-    line-height: 2rem;
-    font-size: 14px;
-    padding-left: 5.5rem;
-    &:last-child {
-      color: #666;
-      font-size: 12px;
-    }
-  }
-}
-
-.d2 {
-  text-align: left;
-  padding: 1rem 0.5rem;
-  font-size: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.operate {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  .ope {
-    width: 3.8rem;
-    padding: 1rem 0;
-    div {
-      font-size: 14px;
-      margin-top: 0.3rem;
-    }
-    i {
-      font-size: 20px;
-    }
-  }
 }
 
 </style>

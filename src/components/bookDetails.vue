@@ -1,7 +1,6 @@
 <template>
   <div class="detail" ref="wrapper">
     <div class="bg">
-
       <Head class="bg">
         <div class="fd" :class="{top:istop}" slot="left">
           <span class="back" @click="back"><i class="mintui mintui-back"></i></span> {{curBook.title}}
@@ -15,10 +14,10 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex';
 import { Indicator } from 'mint-ui';
 import api from '../api/api';
 import Head from './plug/Head';
-import { mapState, mapMutations } from 'vuex';
 import BookDe from './plug/BookDe';
 import Comm from './plug/Comm';
 import Recommend from './plug/Recommend';

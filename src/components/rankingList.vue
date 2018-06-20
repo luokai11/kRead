@@ -48,7 +48,7 @@ export default {
       .then((res) => {
         this.genderList = res.data;
         this.sb = true;
-        var g = this.selectGender === '男生' ? 'male' : 'female';
+        let g = this.selectGender === '男生' ? 'male' : 'female';
         this.gList = this.genderList[g];
         this.getBook(this.gList[0]._id);
       })
@@ -87,7 +87,7 @@ export default {
       this.selectGender = value;
       this.selectRank = '周榜';
       this.isActive = 0;
-      var g = this.selectGender === '男生' ? 'male' : 'female';
+      let g = this.selectGender === '男生' ? 'male' : 'female';
       this.gList = this.genderList[g];
       this.getBook(this.gList[0]._id);
     },
@@ -125,39 +125,6 @@ export default {
   overflow: hidden;
   margin-top: 2.5rem;
   margin-bottom: 3.5rem;
-}
-
-.ranking_left {
-  float: left;
-  width: 19%;
-  background-color: #f5f5f5;
-  position: fixed;
-  top: 2.5rem;
-  bottom: 3.5rem;
-  font-family: SimSun;
-  overflow-y: auto;
-}
-
-.ranking_left ul {
-  height: 100%;
-  overflow-y: auto;
-  margin-right: -0.5rem;
-}
-
-.ranking_left li {
-  padding: 0.8rem 0.5rem 0.8rem 0;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.ranking_right {
-  width: 81%;
-  float: right;
-  overflow-y: auto;
-}
-
-.ranking_right .books {
-  margin: 0.5rem 0 0 0.5rem;
 }
 
 .actived {

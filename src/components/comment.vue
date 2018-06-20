@@ -100,7 +100,6 @@ export default {
       api.getReviewDetails(id)
         .then((res) => {
           this.obj = res.data.review;
-          console.log(this.obj)
           this.activityAvatar = this.obj.author.activityAvatar;
         })
         .catch((error) => {
@@ -115,54 +114,6 @@ export default {
 .comm {
   margin-top: 2.5rem;
   overflow: hidden;
-}
-
-.comments {
-  text-align: left;
-}
-
-.comment {
-  clear: both;
-  overflow: hidden;
-}
-
-.bCom {
-  float: left;
-  padding-left: 1rem;
-  width: 18%;
-}
-
-.rCom {
-  float: right;
-  font-size: 14px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1rem;
-  width: 75%;
-}
-
-.rCom p {
-  width: 226px;
-  word-break: break-all;
-}
-
-.img {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 1.5rem;
-}
-
-.detail {
-  background-color: #ddd;
-  font-family: SimSun;
-}
-
-.wsp {
-  font-size: 12px;
-  color: #666;
-  padding-bottom: 0.5rem;
-  span:first-child {
-    padding-right: 0.5rem;
-  }
 }
 
 </style>

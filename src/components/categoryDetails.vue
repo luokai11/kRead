@@ -67,10 +67,11 @@ export default {
     }
   },
   created() {
+    let name = this.$route.params.name;
     this.$navigation.on('forward', (to, from) => {
       document.title = this.$route.params.name;
     });
-    this.major = this.$route.params.name;
+    this.major = name;
     this.gender = this.$route.query.gender;
     this.scrH.height = window.innerHeight - 64 - 40 + 'px';
     if (this.gender === 'press') {
@@ -79,7 +80,7 @@ export default {
     api.getCategoryDetails()
       .then((res) => {
         for (let obj of res.data[this.gender]) {
-          if (obj.major === this.$route.params.name) {
+          if (obj.major === name) {
             this.mins = obj.mins.slice(0);
           }
         }
@@ -170,52 +171,6 @@ export default {
 .bList {
   overflow-y: auto;
   margin-top: 6.5rem;
-}
-
-.selects {
-  background-color: #f1f1f1;
-  color: #000;
-  font-family: STXingkai;
-  font-size: 14px;
-}
-
-.select-pos {
-  position: absolute;
-  background-color: #f1f1f1;
-  top: 2.5rem;
-  left: 0;
-  width: 100%;
-  line-height: 2rem;
-  opacity: 1;
-  -webkit-transition: all .1s ease;
-  z-index: 100;
-}
-
-.select-item {
-  .scr {
-    overflow: hidden;
-    width: 100%;
-    height: 2rem;
-    line-height: 2rem;
-  }
-  ul {
-    font-size: 0;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    text-align: left;
-    height: 2rem;
-    li {
-      display: inline-block;
-      font-size: 14px;
-      text-align: left;
-      padding: 0 0.5rem;
-      cursor: pointer;
-      &:first-child {
-        padding-left: 1rem;
-      }
-    }
-  }
 }
 
 .active {

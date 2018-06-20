@@ -46,8 +46,12 @@
         </div>
         <div class="operate">
           <div class="ope" @click="details(book,true)">
-            <i class="mintui mintui-mulu"></i>
+            <i class="mintui mintui-yuepiao"></i>
             <div>详情</div>
+          </div>
+          <div class="ope" @click="goChapter(book.id)">
+            <i class="mintui mintui-mulu"></i>
+            <div>目录</div>
           </div>
           <div class="ope" @click="addBook(book)">
             <i class="mintui mintui-jiarushujia"></i>
@@ -87,6 +91,7 @@ export default {
     }
   },
   created() {
+    this.INIT_STATE();
     if(this.browseRecords.length === 0){
       this.isDiv = true;
     }
@@ -143,14 +148,20 @@ export default {
         .catch(() => {
           this.showDialog = false;
         });
+    },
+    goChapter(id){
+      this.popupVisible = false;
+      this.$router.push({
+        name: 'chapter',
+        params: { id: id },
+        query: { isChap: true }
+      });
     }
   },
   watch: {
     'browseRecords': function() {
       if (this.browseRecords.length === 0) {
         this.isDiv = true;
-      }else {
-        this.isDiv = false;
       }
     }
   }
@@ -164,64 +175,6 @@ export default {
 
 .content .books:last-child {
   border-bottom: 1px solid #ddd;
-}
-
-.popup {
-  width: 100%;
-  font-family: 宋体;
-}
-
-.d1 {
-  line-height: 4rem;
-  height: 4rem;
-  background-image: url(/static/bc.png);
-  color: #EE7700;
-  text-align: left;
-}
-
-.d1 div {
-  line-height: 2rem;
-  font-size: 14px;
-  padding-left: 5.5rem;
-  &:last-child {
-    color: #666;
-    font-size: 12px;
-  }
-}
-
-.d1 img {
-  width: 4rem;
-  height: 4.5rem;
-  float: left;
-  margin-top: -0.5rem;
-  padding-left: 0.5rem;
-}
-
-.d2 {
-  text-align: left;
-  padding: 1rem 0.5rem;
-  font-size: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.operate {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.operate .ope {
-  width: 3.8rem;
-  padding: 1rem 0;
-}
-
-.ope i {
-  font-size: 20px;
-}
-
-.ope div {
-  font-size: 14px;
-  margin-top: 0.3rem;
 }
 
 </style>
